@@ -3,6 +3,7 @@ version: '3.8'
 services:
   postgres:
     image: postgres:16
+    container_name: flowers-postgres
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: secret
@@ -12,9 +13,17 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d flowersdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   mysql:
-    image: flowers-mysql:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    container_name: flowers-mysql
     environment:
       MYSQL_USER: admin
       MYSQL_PASSWORD: secret
@@ -23,7 +32,13 @@ services:
     ports:
       - '3306:3306'
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
   postgres_data:
