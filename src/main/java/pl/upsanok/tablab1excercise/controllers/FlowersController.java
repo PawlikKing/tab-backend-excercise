@@ -1,7 +1,6 @@
 package pl.upsanok.tablab1excercise.controllers;
 
 import java.util.List;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,7 +13,6 @@ import pl.upsanok.tablab1excercise.services.FlowersService;
 
 @RestController()
 @CrossOrigin(origins = {"http://localhost:3000", "https://tab-front-production.up.railway.app"})
-@AllArgsConstructor
 public class FlowersController {
 
   @Autowired

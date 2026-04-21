@@ -1,9 +1,20 @@
 package pl.upsanok.tablab1excercise.controllers.dto;
 
-import lombok.Builder;
+public record Flower(String name) {
+    public static Builder builder() {
+        return new Builder();
+    }
 
-@Builder
-public record Flower(
-    String name
-) {
+    public static class Builder {
+        private String name;
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Flower build() {
+            return new Flower(name);
+        }
+    }
 }
