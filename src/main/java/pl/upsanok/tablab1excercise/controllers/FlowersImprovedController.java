@@ -59,5 +59,21 @@ public class FlowersImprovedController {
     flowersService.addFlowerToGarden(userName, flower.name());
     return ResponseEntity.ok(flower);
   }
+
+  @PostMapping("flowers/{newFlower}")
+  public ResponseEntity<Integer> saveNewFlower(
+      @PathVariable String newFlower
+  ) {
+    int result = flowersService.saveNewFlower(newFlower);
+    return ResponseEntity.ok(result);
+  }
+
+  @PostMapping("flowers/limit/{newFlower}")
+  public ResponseEntity<Integer> saveNewFlowerWithLimit(
+      @PathVariable String newFlower
+  ) {
+    int result = flowersService.saveNewFlowerWithLimit(newFlower);
+    return ResponseEntity.ok(result);
+  }
 }
 

@@ -15,6 +15,7 @@ import java.util.List;
 public class FlowerEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
@@ -23,7 +24,4 @@ public class FlowerEntity {
 
     @OneToMany(mappedBy = "favouriteFlower")
     private List<UserEntity> usersWhoLikeThisFlower;
-
-    @ManyToMany(mappedBy = "gardenFlowers")
-    private List<UserEntity> owners;
 }

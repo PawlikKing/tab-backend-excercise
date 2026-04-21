@@ -5,7 +5,7 @@ INSERT INTO flowers (id, name) VALUES
 (4, 'Lilia'),
 (5, 'Słonecznik');
 
-INSERT INTO users (id, name, favourite_flower_id) VALUES
+INSERT INTO user_table (user_id, user_name, flower_id) VALUES
 (1, 'Kamil', 1),
 (2, 'Anna', 2),
 (3, 'Piotr', 3),

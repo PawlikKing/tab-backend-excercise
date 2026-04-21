@@ -1,6 +1,8 @@
 package pl.upsanok.tablab1excercise.controllers.dto;
 
-public record Flower(String name) {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record Flower(@JsonProperty("name") String name) {
     public static Builder builder() {
         return new Builder();
     }

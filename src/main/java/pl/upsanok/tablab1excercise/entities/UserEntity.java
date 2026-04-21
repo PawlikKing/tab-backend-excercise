@@ -3,41 +3,24 @@ package pl.upsanok.tablab1excercise.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
+@Builder
+@Table(name = "user_table")
 @Entity
-@Table(name = "users")
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class UserEntity {
 
     @Id
-    @Column(name = "id")
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private int id;
 
-    @Column(name = "name")
+    @Column(name = "user_name", unique = true)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "favourite_flower_id")
+    @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY)
+    @JoinColumn(name = "flower_id")
     private FlowerEntity favouriteFlower;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_garden",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "flower_id")
-    )
-    private List<FlowerEntity> gardenFlowers;
-
-    public void addFlowerToGarden(FlowerEntity flower) {
-        if (this.gardenFlowers == null) {
-            this.gardenFlowers = new ArrayList<>();
-        }
-        this.gardenFlowers.add(flower);
-    }
 }

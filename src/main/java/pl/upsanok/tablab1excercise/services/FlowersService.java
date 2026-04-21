@@ -1,22 +1,30 @@
 package pl.upsanok.tablab1excercise.services;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.upsanok.tablab1excercise.controllers.dto.Flower;
 import pl.upsanok.tablab1excercise.entities.FlowerEntity;
+import pl.upsanok.tablab1excercise.entities.GardenEntity;
+import pl.upsanok.tablab1excercise.entities.GardenIdEmbedded;
 import pl.upsanok.tablab1excercise.entities.UserEntity;
 import pl.upsanok.tablab1excercise.repositories.FlowerRepository;
+import pl.upsanok.tablab1excercise.repositories.GardenRepository;
 import pl.upsanok.tablab1excercise.repositories.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class FlowersService {
 
     private final FlowerRepository flowerRepository;
     private final UserRepository userRepository;
+    private final GardenRepository gardenRepository;
 
     public List<Flower> getAllFlowers() {
         return flowerRepository.findAll()
@@ -46,6 +54,39 @@ public class FlowersService {
         return true;
     }
 
+    @Transactional
+    public boolean saveFlowerInGardenForUser(String userName, String flowerName) {
+        Optional<UserEntity> userOptional = userRepository.findAll().stream()
+            .filter(userEntity -> userEntity.getName().equals(userName))
+            .findFirst();
+
+        Optional<FlowerEntity> flowerOptional = flowerRepository.findAll().stream()
+            .filter(flowerEntity -> flowerEntity.getName().equals(flowerName))
+            .findFirst();
+
+        if (userOptional.isEmpty()) {
+            List<FlowerEntity> flowersInGarden = new ArrayList<>();
+            flowersInGarden.add(flowerOptional.get());
+            
+            UserEntity userEntity = UserEntity.builder()
+                .name(userName)
+                .build();
+
+            userRepository.save(userEntity);
+
+            gardenRepository.save(
+                GardenEntity.builder()
+                    .gardenId(GardenIdEmbedded.builder()
+                        .userId(userOptional.get().getId())
+                        .flowerId(flowerOptional.get().getId())
+                        .build())
+                    .build());
+
+            return true;
+        }
+        return false;
+    }
+
     public void addFlowerToGarden(String userName, String flowerName) {
         UserEntity user = userRepository.findByName(userName);
         FlowerEntity flower = flowerRepository.findByName(flowerName);
@@ -54,18 +95,56 @@ public class FlowersService {
             return;
         }
 
-        user.addFlowerToGarden(flower);
-        userRepository.save(user);
+        gardenRepository.save(
+            GardenEntity.builder()
+                .gardenId(GardenIdEmbedded.builder()
+                    .userId(user.getId())
+                    .flowerId(flower.getId())
+                    .build())
+                .build());
     }
 
     public List<Flower> getGardenFlowers(String userName) {
         UserEntity user = userRepository.findByName(userName);
-        if (user == null || user.getGardenFlowers() == null) {
+        if (user == null) {
             return List.of();
         }
-        return user.getGardenFlowers()
-                .stream()
-                .map(entity -> Flower.builder().name(entity.getName()).build())
+        return gardenRepository.findAll().stream()
+                .filter(g -> g.getGardenId().getUserId() == user.getId())
+                .map(g -> {
+                    FlowerEntity flower = flowerRepository.findById(g.getGardenId().getFlowerId()).orElse(null);
+                    return flower != null ? Flower.builder().name(flower.getName()).build() : null;
+                })
+                .filter(f -> f != null)
                 .toList();
+    }
+
+    @Transactional
+    public int saveNewFlower(String flowerName) {
+        var result = flowerRepository.save(FlowerEntity.builder().name(flowerName).build()).getId();
+        try {
+            Thread.sleep(5000); // symulacja długiego procesu
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        log.info("Flower saved with id: {}", result);
+        return result;
+    }
+
+    @Transactional
+    public int saveNewFlowerWithLimit(String flowerName) {
+        Long nrOfFlowers = flowerRepository.count();
+        if (nrOfFlowers < 6) {
+            var result = flowerRepository.save(FlowerEntity.builder().name(flowerName).build()).getId();
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            log.info("Flower saved with id: {}", result);
+            return result;
+        }
+        log.info("Flower not saved, max number of flowers reached");
+        return -1;
     }
 }
