@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.upsanok.tablab1excercise.services.FlowersService;
 import pl.upsanok.tablab1excercise.controllers.dto.Flower;
 
+import java.util.List;
+
 @RestController()
 @CrossOrigin(origins = {"http://localhost:3000", "https://tab-front-production.up.railway.app"})
 @AllArgsConstructor
@@ -35,7 +37,27 @@ public class FlowersImprovedController {
       @RequestBody Flower flower
   ) {
     boolean result = flowersService.saveFavouriteFlowerFor(userName, flower.name());
-    return ResponseEntity.ok(Flower.builder().name("testowa").build());
+    if (result) {
+      return ResponseEntity.ok(flower);
+    }
+    return ResponseEntity.badRequest().build();
+  }
+
+  @GetMapping("flowers/garden/users/{userName}")
+  public ResponseEntity<List<Flower>> getGardenFlowers(
+      @PathVariable String userName
+  ) {
+    var result = flowersService.getGardenFlowers(userName);
+    return ResponseEntity.ok(result);
+  }
+
+  @PostMapping("flowers/garden/users/{userName}")
+  public ResponseEntity<Flower> addFlowerToGarden(
+      @PathVariable String userName,
+      @RequestBody Flower flower
+  ) {
+    flowersService.addFlowerToGarden(userName, flower.name());
+    return ResponseEntity.ok(flower);
   }
 }
 

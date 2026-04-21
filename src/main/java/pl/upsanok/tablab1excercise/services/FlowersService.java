@@ -26,33 +26,46 @@ public class FlowersService {
     }
 
     public Flower getFavouriteFlowerForUser(String userName) {
-        return userRepository.findAll()
-                .stream()
-                .filter(user -> user.getName().equals(userName))
-                .findFirst()
-                .map(UserEntity::getFlower)
-                .map(flower -> Flower.builder().name(flower.getName()).build())
-                .orElse(Flower.builder().name("").build());
+        UserEntity user = userRepository.findByName(userName);
+        if (user == null || user.getFavouriteFlower() == null) {
+            return Flower.builder().name("").build();
+        }
+        return Flower.builder().name(user.getFavouriteFlower().getName()).build();
     }
 
     public boolean saveFavouriteFlowerFor(String userName, String flowerName) {
-        Optional<UserEntity> userOpt = userRepository.findAll()
-                .stream()
-                .filter(user -> user.getName().equals(userName))
-                .findFirst();
+        UserEntity user = userRepository.findByName(userName);
+        FlowerEntity flower = flowerRepository.findByName(flowerName);
 
-        Optional<FlowerEntity> flowerOpt = flowerRepository.findAll()
-                .stream()
-                .filter(flower -> flower.getName().equals(flowerName))
-                .findFirst();
-
-        if (userOpt.isEmpty() || flowerOpt.isEmpty()) {
+        if (user == null || flower == null) {
             return false;
         }
 
-        UserEntity user = userOpt.get();
-        user.setFlower(flowerOpt.get());
+        user.setFavouriteFlower(flower);
         userRepository.save(user);
         return true;
+    }
+
+    public void addFlowerToGarden(String userName, String flowerName) {
+        UserEntity user = userRepository.findByName(userName);
+        FlowerEntity flower = flowerRepository.findByName(flowerName);
+
+        if (user == null || flower == null) {
+            return;
+        }
+
+        user.addFlowerToGarden(flower);
+        userRepository.save(user);
+    }
+
+    public List<Flower> getGardenFlowers(String userName) {
+        UserEntity user = userRepository.findByName(userName);
+        if (user == null || user.getGardenFlowers() == null) {
+            return List.of();
+        }
+        return user.getGardenFlowers()
+                .stream()
+                .map(entity -> Flower.builder().name(entity.getName()).build())
+                .toList();
     }
 }

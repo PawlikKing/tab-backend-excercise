@@ -6,4 +6,5 @@ import pl.upsanok.tablab1excercise.entities.UserEntity;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
+    UserEntity findByName(String name);
 }
