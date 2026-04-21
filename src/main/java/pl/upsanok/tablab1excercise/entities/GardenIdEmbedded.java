@@ -14,9 +14,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class GardenIdEmbedded implements Serializable {
-    @Column(name = "user_id")
+    @Column(name = "userId")
     private int userId;
     
-    @Column(name = "flower_id")
+    @Column(name = "flowerId")
     private int flowerId;
 }

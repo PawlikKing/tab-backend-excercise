@@ -1,11 +1,11 @@
-INSERT INTO flowers (id, name) VALUES
+INSERT INTO Flowers (id, name) VALUES
 (1, 'Róża'),
 (2, 'Tulipan'),
 (3, 'Stokrotka'),
 (4, 'Lilia'),
 (5, 'Słonecznik');
 
-INSERT INTO user_table (user_id, user_name, flower_id) VALUES
+INSERT INTO Users (userId, username, flowerId) VALUES
 (1, 'Kamil', 1),
 (2, 'Anna', 2),
 (3, 'Piotr', 3),

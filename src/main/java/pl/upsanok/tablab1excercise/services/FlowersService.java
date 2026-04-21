@@ -144,7 +144,7 @@ public class FlowersService {
             log.info("Flower saved with id: {}", result);
             return result;
         }
-        log.info("Flower not saved, max number of flowers reached");
+        log.info("Flower not saved, max number of Flowers reached");
         return -1;
     }
 }

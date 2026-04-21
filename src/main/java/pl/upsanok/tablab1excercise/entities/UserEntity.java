@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Builder
-@Table(name = "user_table")
+@Table(name = "Users")
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,13 +14,13 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "userId")
     private int id;
 
-    @Column(name = "user_name", unique = true)
+    @Column(name = "username", unique = true)
     private String name;
 
     @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY)
-    @JoinColumn(name = "flower_id")
+    @JoinColumn(name = "flowerId")
     private FlowerEntity favouriteFlower;
 }

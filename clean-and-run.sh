@@ -42,8 +42,8 @@ sleep 8
 
 # Verify connections
 echo -e "${YELLOW}✓ Verifying database connections...${NC}"
-docker exec flowers-postgres psql -U admin -d flowersdb -c "SELECT COUNT(*) as flowers FROM flowers;" 2>/dev/null && echo -e "${GREEN}✓ PostgreSQL (5432) ready${NC}" || echo -e "${RED}✗ PostgreSQL failed${NC}"
-docker exec flowers-mysql mysql -u admin -psecret -e "SELECT COUNT(*) as flowers FROM flowersdb.flowers;" 2>/dev/null && echo -e "${GREEN}✓ MySQL (3306) ready${NC}" || echo -e "${RED}✗ MySQL failed${NC}"
+docker exec flowers-postgres psql -U admin -d flowersdb -c "SELECT COUNT(*) as Flowers FROM flowers;" 2>/dev/null && echo -e "${GREEN}✓ PostgreSQL (5432) ready${NC}" || echo -e "${RED}✗ PostgreSQL failed${NC}"
+docker exec flowers-mysql mysql -u admin -psecret -e "SELECT COUNT(*) as Flowers FROM flowersdb.flowers;" 2>/dev/null && echo -e "${GREEN}✓ MySQL (3306) ready${NC}" || echo -e "${RED}✗ MySQL failed${NC}"
 
 # Rebuild project
 echo -e "${YELLOW}📦 Building project...${NC}"
