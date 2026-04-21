@@ -12,7 +12,6 @@ import pl.upsanok.tablab1excercise.controllers.dto.Flower;
 import pl.upsanok.tablab1excercise.services.FlowersService;
 
 @RestController()
-@CrossOrigin(origins = {"http://localhost:3000", "https://tab-front-production.up.railway.app"})
 public class FlowersController {
 
   @Autowired
