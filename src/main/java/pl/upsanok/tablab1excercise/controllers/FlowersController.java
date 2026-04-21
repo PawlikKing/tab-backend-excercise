@@ -12,6 +12,7 @@ import pl.upsanok.tablab1excercise.controllers.dto.Flower;
 import pl.upsanok.tablab1excercise.services.FlowersService;
 
 @RestController()
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080", "http://[::1]:8080", "https://tab-front-production.up.railway.app"}, allowCredentials = "true", allowedHeaders = "*", methods = {org.springframework.web.bind.annotation.RequestMethod.GET, org.springframework.web.bind.annotation.RequestMethod.POST, org.springframework.web.bind.annotation.RequestMethod.PUT, org.springframework.web.bind.annotation.RequestMethod.DELETE, org.springframework.web.bind.annotation.RequestMethod.OPTIONS})
 public class FlowersController {
 
   @Autowired

@@ -16,6 +16,7 @@ import pl.upsanok.tablab1excercise.controllers.dto.Flower;
 import java.util.List;
 
 @RestController()
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080", "http://[::1]:8080", "https://tab-front-production.up.railway.app"}, allowCredentials = "true", allowedHeaders = "*", methods = {org.springframework.web.bind.annotation.RequestMethod.GET, org.springframework.web.bind.annotation.RequestMethod.POST, org.springframework.web.bind.annotation.RequestMethod.PUT, org.springframework.web.bind.annotation.RequestMethod.DELETE, org.springframework.web.bind.annotation.RequestMethod.OPTIONS})
 @AllArgsConstructor
 public class FlowersImprovedController {
 
@@ -73,23 +74,6 @@ public class FlowersImprovedController {
   ) {
     int result = flowersService.saveNewFlowerWithLimit(newFlower);
     return ResponseEntity.ok(result);
-  }
-
-  @GetMapping("users/{userName}/garden")
-  public ResponseEntity<List<Flower>> getUserGarden(
-      @PathVariable String userName
-  ) {
-    var result = flowersService.getGardenFlowers(userName);
-    return ResponseEntity.ok(result);
-  }
-
-  @PostMapping("users/{userName}/garden/flowers/{flowerName}")
-  public ResponseEntity<Flower> addFlowerToUserGarden(
-      @PathVariable String userName,
-      @PathVariable String flowerName
-  ) {
-    flowersService.addFlowerToGarden(userName, flowerName);
-    return ResponseEntity.ok(Flower.builder().name(flowerName).build());
   }
 }
 
