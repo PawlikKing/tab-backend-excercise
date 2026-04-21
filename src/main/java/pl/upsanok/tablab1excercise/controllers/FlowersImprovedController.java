@@ -74,5 +74,22 @@ public class FlowersImprovedController {
     int result = flowersService.saveNewFlowerWithLimit(newFlower);
     return ResponseEntity.ok(result);
   }
+
+  @GetMapping("users/{userName}/garden")
+  public ResponseEntity<List<Flower>> getUserGarden(
+      @PathVariable String userName
+  ) {
+    var result = flowersService.getGardenFlowers(userName);
+    return ResponseEntity.ok(result);
+  }
+
+  @PostMapping("users/{userName}/garden/flowers/{flowerName}")
+  public ResponseEntity<Flower> addFlowerToUserGarden(
+      @PathVariable String userName,
+      @PathVariable String flowerName
+  ) {
+    flowersService.addFlowerToGarden(userName, flowerName);
+    return ResponseEntity.ok(Flower.builder().name(flowerName).build());
+  }
 }
 
