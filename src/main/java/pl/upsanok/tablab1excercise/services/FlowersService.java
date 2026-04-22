@@ -43,7 +43,7 @@ public class FlowersService {
 
     public boolean saveFavouriteFlowerFor(String userName, String flowerName) {
         UserEntity user = userRepository.findByName(userName);
-        FlowerEntity flower = flowerRepository.findByName(flowerName);
+        FlowerEntity flower = flowerRepository.findByFlowerName(flowerName);  // Changed from findByName
 
         if (user == null || flower == null) {
             return false;
@@ -53,6 +53,7 @@ public class FlowersService {
         userRepository.save(user);
         return true;
     }
+
 
     @Transactional
     public boolean saveFlowerInGardenForUser(String userName, String flowerName) {
@@ -89,7 +90,7 @@ public class FlowersService {
 
     public void addFlowerToGarden(String userName, String flowerName) {
         UserEntity user = userRepository.findByName(userName);
-        FlowerEntity flower = flowerRepository.findByName(flowerName);
+        FlowerEntity flower = flowerRepository.findByFlowerName(flowerName);  // Changed from findByName
 
         if (user == null || flower == null) {
             return;

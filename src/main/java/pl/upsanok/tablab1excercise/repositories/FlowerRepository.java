@@ -6,5 +6,5 @@ import pl.upsanok.tablab1excercise.entities.FlowerEntity;
 
 @Repository
 public interface FlowerRepository extends JpaRepository<FlowerEntity, Integer> {
-    FlowerEntity findByName(String name);
+    FlowerEntity findByFlowerName(String flowerName);
 }
