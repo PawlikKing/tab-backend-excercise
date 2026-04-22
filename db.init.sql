@@ -29,6 +29,7 @@ INSERT INTO Flowers ("flowerId", "flowerName") VALUES
 (2, 'Barszcz Sosnowskiego'),
 (3, 'Mak'),
 (4, 'Pomidor'),
+(5, 'Welwiczja przedziwna'),
 
 INSERT INTO Users ("userId", "username", "flowerId") VALUES
 (1, 'Pawelo', 1),

@@ -90,7 +90,7 @@ public class FlowersService {
 
     public void addFlowerToGarden(String userName, String flowerName) {
         UserEntity user = userRepository.findByName(userName);
-        FlowerEntity flower = flowerRepository.findByFlowerName(flowerName);  // Changed from findByName
+        FlowerEntity flower = flowerRepository.findByFlowerName(flowerName);
 
         if (user == null || flower == null) {
             return;
@@ -124,7 +124,7 @@ public class FlowersService {
     public int saveNewFlower(String flowerName) {
         var result = flowerRepository.save(FlowerEntity.builder().flowerName(flowerName).build()).getFlowerId();
         try {
-            Thread.sleep(5000); // symulacja długiego procesu
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
