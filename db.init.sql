@@ -23,3 +23,17 @@ CREATE TABLE IF NOT EXISTS Garden (
     CONSTRAINT fk_garden_user   FOREIGN KEY (userId)   REFERENCES Users   (userId),
     CONSTRAINT fk_garden_flower FOREIGN KEY (flowerId) REFERENCES Flowers (id)
 );
+
+INSERT INTO Flowers ("id", "name") VALUES
+(1, 'Róża'),
+(2, 'Tulipan'),
+(3, 'Stokrotka'),
+(4, 'Lilia'),
+(5, 'Słonecznik');
+
+INSERT INTO Users ("userId", "username", "flowerId") VALUES
+(1, 'Kamil', 1),
+(2, 'Anna', 2),
+(3, 'Piotr', 3),
+(4, 'Maria', 4),
+(5, 'Jan', 5);

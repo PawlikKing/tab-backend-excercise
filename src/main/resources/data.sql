@@ -1,13 +1,10 @@
-INSERT INTO Flowers (id, name) VALUES
-(1, 'Róża'),
-(2, 'Tulipan'),
-(3, 'Stokrotka'),
-(4, 'Lilia'),
-(5, 'Słonecznik');
+INSERT INTO Flowers ("id", "name") VALUES
+(1, 'Ziemniak'),
+(2, 'Barszcz Sosnowskiego'),
+(3, 'Mak'),
+(4, 'Pomidor'),
 
-INSERT INTO Users (userId, username, flowerId) VALUES
-(1, 'Kamil', 1),
-(2, 'Anna', 2),
-(3, 'Piotr', 3),
-(4, 'Maria', 4),
-(5, 'Jan', 5);
+INSERT INTO Users ("userId", "username", "flowerId") VALUES
+(1, 'Pawelo', 1),
+(2, 'Ania', 2),
+(3, 'Jakub', 3),

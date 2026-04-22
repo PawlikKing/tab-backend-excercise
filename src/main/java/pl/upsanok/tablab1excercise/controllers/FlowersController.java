@@ -18,7 +18,7 @@ public class FlowersController {
   @Autowired
   private FlowersService flowersService;
 
-  private String favFlower = "Narcyz";
+  private String favFlower = "Ziemniak";
 
   @GetMapping("flowers")
   public ResponseEntity<List<Flower>> getName() {
