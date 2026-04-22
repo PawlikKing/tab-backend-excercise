@@ -9,8 +9,8 @@ CREATE TABLE IF NOT EXISTS Users (
 );
 
 CREATE TABLE IF NOT EXISTS Flowers (
-    "id"   INT          NOT NULL AUTO_INCREMENT,
-    "name" VARCHAR(100) NOT NULL,
+    "flowerId"   INT          NOT NULL AUTO_INCREMENT,
+    "flowerName" VARCHAR(100) NOT NULL,
 
     CONSTRAINT pk_flowers PRIMARY KEY (id)
 );

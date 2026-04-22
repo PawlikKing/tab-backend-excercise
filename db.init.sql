@@ -5,14 +5,14 @@ CREATE TABLE IF NOT EXISTS Users (
 
     CONSTRAINT pk_users        PRIMARY KEY (userId),
     CONSTRAINT uq_users_name   UNIQUE      (username),
-    CONSTRAINT fk_users_flower FOREIGN KEY (flowerId) REFERENCES Flowers (id)
+    CONSTRAINT fk_users_flower FOREIGN KEY (flowerId) REFERENCES Flowers (flowerId)
 );
 
 CREATE TABLE IF NOT EXISTS Flowers (
-    "id"   INT          NOT NULL AUTO_INCREMENT,
-    "name" VARCHAR(100) NOT NULL,
+    "flowerId"   INT          NOT NULL AUTO_INCREMENT,
+    "flowerName" VARCHAR(100) NOT NULL,
 
-    CONSTRAINT pk_flowers PRIMARY KEY (id)
+    CONSTRAINT pk_flowers PRIMARY KEY (flowerId)
 );
 
 CREATE TABLE IF NOT EXISTS Garden (
@@ -21,10 +21,10 @@ CREATE TABLE IF NOT EXISTS Garden (
 
     CONSTRAINT pk_garden        PRIMARY KEY (userId, flowerId),
     CONSTRAINT fk_garden_user   FOREIGN KEY (userId)   REFERENCES Users   (userId),
-    CONSTRAINT fk_garden_flower FOREIGN KEY (flowerId) REFERENCES Flowers (id)
+    CONSTRAINT fk_garden_flower FOREIGN KEY (flowerId) REFERENCES Flowers (flowerId)
 );
 
-INSERT INTO Flowers ("id", "name") VALUES
+INSERT INTO Flowers ("flowerId", "flowerName") VALUES
 (1, 'Ziemniak'),
 (2, 'Barszcz Sosnowskiego'),
 (3, 'Mak'),

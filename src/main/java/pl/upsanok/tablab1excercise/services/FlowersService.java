@@ -29,7 +29,7 @@ public class FlowersService {
     public List<Flower> getAllFlowers() {
         return flowerRepository.findAll()
                 .stream()
-                .map(entity -> Flower.builder().name(entity.getName()).build())
+                .map(entity -> Flower.builder().name(entity.getFlowerName()).build())
                 .toList();
     }
 
@@ -38,7 +38,7 @@ public class FlowersService {
         if (user == null || user.getFavouriteFlower() == null) {
             return Flower.builder().name("").build();
         }
-        return Flower.builder().name(user.getFavouriteFlower().getName()).build();
+        return Flower.builder().name(user.getFavouriteFlower().getFlowerName()).build();
     }
 
     public boolean saveFavouriteFlowerFor(String userName, String flowerName) {
@@ -61,7 +61,7 @@ public class FlowersService {
             .findFirst();
 
         Optional<FlowerEntity> flowerOptional = flowerRepository.findAll().stream()
-            .filter(flowerEntity -> flowerEntity.getName().equals(flowerName))
+            .filter(flowerEntity -> flowerEntity.getFlowerName().equals(flowerName))
             .findFirst();
 
         if (userOptional.isEmpty()) {
@@ -78,7 +78,7 @@ public class FlowersService {
                 GardenEntity.builder()
                     .gardenId(GardenIdEmbedded.builder()
                         .userId(userOptional.get().getId())
-                        .flowerId(flowerOptional.get().getId())
+                        .flowerId(flowerOptional.get().getFlowerId())
                         .build())
                     .build());
 
@@ -99,7 +99,7 @@ public class FlowersService {
             GardenEntity.builder()
                 .gardenId(GardenIdEmbedded.builder()
                     .userId(user.getId())
-                    .flowerId(flower.getId())
+                    .flowerId(flower.getFlowerId())
                     .build())
                 .build());
     }
@@ -113,7 +113,7 @@ public class FlowersService {
                 .filter(g -> g.getGardenId().getUserId() == user.getId())
                 .map(g -> {
                     FlowerEntity flower = flowerRepository.findById(g.getGardenId().getFlowerId()).orElse(null);
-                    return flower != null ? Flower.builder().name(flower.getName()).build() : null;
+                    return flower != null ? Flower.builder().name(flower.getFlowerName()).build() : null;
                 })
                 .filter(f -> f != null)
                 .toList();
@@ -121,7 +121,7 @@ public class FlowersService {
 
     @Transactional
     public int saveNewFlower(String flowerName) {
-        var result = flowerRepository.save(FlowerEntity.builder().name(flowerName).build()).getId();
+        var result = flowerRepository.save(FlowerEntity.builder().flowerName(flowerName).build()).getFlowerId();
         try {
             Thread.sleep(5000); // symulacja długiego procesu
         } catch (InterruptedException e) {
@@ -135,7 +135,7 @@ public class FlowersService {
     public int saveNewFlowerWithLimit(String flowerName) {
         Long nrOfFlowers = flowerRepository.count();
         if (nrOfFlowers < 6) {
-            var result = flowerRepository.save(FlowerEntity.builder().name(flowerName).build()).getId();
+            var result = flowerRepository.save(FlowerEntity.builder().flowerName(flowerName).build()).getFlowerId();
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
