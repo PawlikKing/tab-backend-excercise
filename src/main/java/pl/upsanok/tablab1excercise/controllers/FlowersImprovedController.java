@@ -43,23 +43,6 @@ public class FlowersImprovedController {
     return ResponseEntity.badRequest().build();
   }
 
-  @GetMapping("flowers/garden/users/{userName}")
-  public ResponseEntity<List<Flower>> getGardenFlowers(
-      @PathVariable String userName
-  ) {
-    var result = flowersService.getGardenFlowers(userName);
-    return ResponseEntity.ok(result);
-  }
-
-  @PostMapping("flowers/garden/users/{userName}")
-  public ResponseEntity<Flower> addFlowerToGarden(
-      @PathVariable String userName,
-      @RequestBody Flower flower
-  ) {
-    flowersService.addFlowerToGarden(userName, flower.name());
-    return ResponseEntity.ok(flower);
-  }
-
   @PostMapping("flowers/{newFlower}")
   public ResponseEntity<Integer> saveNewFlower(
       @PathVariable String newFlower

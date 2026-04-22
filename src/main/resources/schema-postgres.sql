@@ -9,9 +9,9 @@ CREATE TABLE IF NOT EXISTS Users (
     flowerId INT DEFAULT NULL REFERENCES Flowers (flowerId)
 );
 
-CREATE TABLE IF NOT EXISTS Garden (
+/*CREATE TABLE IF NOT EXISTS Garden (
     userId   INT NOT NULL REFERENCES Users (userId),
     flowerId INT NOT NULL REFERENCES Flowers (flowerId),
 
     CONSTRAINT pk_garden PRIMARY KEY (userId, flowerId)
-);
+);*/

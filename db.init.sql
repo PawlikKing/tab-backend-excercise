@@ -15,14 +15,14 @@ CREATE TABLE IF NOT EXISTS Flowers (
     CONSTRAINT pk_flowers PRIMARY KEY (flowerId)
 );
 
-CREATE TABLE IF NOT EXISTS Garden (
+/*CREATE TABLE IF NOT EXISTS Garden (
     "userId"   INT NOT NULL,
     "flowerId" INT NOT NULL,
 
     CONSTRAINT pk_garden        PRIMARY KEY (userId, flowerId),
     CONSTRAINT fk_garden_user   FOREIGN KEY (userId)   REFERENCES Users   (userId),
     CONSTRAINT fk_garden_flower FOREIGN KEY (flowerId) REFERENCES Flowers (flowerId)
-);
+);*/
 
 INSERT INTO Flowers ("flowerId", "flowerName") VALUES
 (1, 'Ziemniak'),

@@ -15,11 +15,11 @@ CREATE TABLE IF NOT EXISTS Users (
     CONSTRAINT fk_users_flower FOREIGN KEY (flowerId) REFERENCES Flowers (flowerId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE IF NOT EXISTS Garden (
+/*CREATE TABLE IF NOT EXISTS Garden (
     userId   INT NOT NULL,
     flowerId INT NOT NULL,
 
     CONSTRAINT pk_garden        PRIMARY KEY (userId, flowerId),
     CONSTRAINT fk_garden_user   FOREIGN KEY (userId)   REFERENCES Users (userId),
     CONSTRAINT fk_garden_flower FOREIGN KEY (flowerId) REFERENCES Flowers (flowerId)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;*/
