@@ -16,10 +16,10 @@ public class FlowerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "flowerId")
+    @Column(name = "flower_id")
     private Integer flowerId;
 
-    @Column(name = "flowerName")
+    @Column(name = "flower_name")
     private String flowerName;
 
     @OneToMany(mappedBy = "favouriteFlower")

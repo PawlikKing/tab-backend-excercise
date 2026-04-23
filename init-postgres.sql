@@ -1,29 +1,29 @@
 -- PostgreSQL initialization script
-CREATE TABLE IF NOT EXISTS Flowers (
-    flowerId   INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    flowerName VARCHAR(100) NOT NULL
+CREATE TABLE IF NOT EXISTS flowers (
+    flower_id   INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    flower_name VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS Users (
-    userId   INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    username VARCHAR(100) NOT NULL UNIQUE,
-    flowerId INT DEFAULT NULL REFERENCES Flowers (flowerId)
+CREATE TABLE IF NOT EXISTS users (
+    user_id   INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    username  VARCHAR(100) NOT NULL UNIQUE,
+    flower_id INT DEFAULT NULL REFERENCES flowers (flower_id)
 );
 
-CREATE TABLE IF NOT EXISTS Garden (
-    userId   INT NOT NULL REFERENCES Users (userId),
-    flowerId INT NOT NULL REFERENCES Flowers (flowerId),
-    CONSTRAINT pk_garden PRIMARY KEY (userId, flowerId)
+CREATE TABLE IF NOT EXISTS garden (
+    user_id   INT NOT NULL REFERENCES users (user_id),
+    flower_id INT NOT NULL REFERENCES flowers (flower_id),
+    CONSTRAINT pk_garden PRIMARY KEY (user_id, flower_id)
 );
 
-INSERT INTO Flowers (flowerName) VALUES
+INSERT INTO flowers (flower_name) VALUES
 ('Ziemniak'),
 ('Barszcz Sosnowskiego'),
 ('Mak'),
 ('Pomidor'),
 ('Welwiczja przedziwna');
 
-INSERT INTO Users (username, flowerId) VALUES
+INSERT INTO users (username, flower_id) VALUES
 ('Pawelo', 1),
 ('Ania', 2),
 ('Jakub', 3);
