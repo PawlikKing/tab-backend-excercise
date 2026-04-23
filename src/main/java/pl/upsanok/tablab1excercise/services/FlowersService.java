@@ -43,7 +43,7 @@ public class FlowersService {
 
     public boolean saveFavouriteFlowerFor(String userName, String flowerName) {
         UserEntity user = userRepository.findByName(userName);
-        FlowerEntity flower = flowerRepository.findByFlowerName(flowerName);  // Changed from findByName
+        FlowerEntity flower = flowerRepository.findByFlowerName(flowerName);
 
         if (user == null || flower == null) {
             return false;
