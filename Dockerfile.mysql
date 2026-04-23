@@ -1,6 +1,0 @@
-FROM mysql:8.0
-ENV MYSQL_DATABASE=flowersdb
-ENV MYSQL_USER=admin
-ENV MYSQL_PASSWORD=secret
-ENV MYSQL_ROOT_PASSWORD=root
-COPY db.init.sql /docker-entrypoint-initdb.d/
